@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MyBaby</string>
+    <string name="bemvindo">Bem Vindo!</string>
+    <string name="login">Login</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="cin_logo">Logo do CIn</string>
+    <string name="senha">Senha</string>
+    <string name="confirmar_senha">Confirmar senha</string>
+    <string name="nome">Nome</string>
+    <string name="email">Email</string>
+    <string name="user">Usuário</string>
+    <string name="logged_in">Logado em </string>
+    <string name="button_calculo">Calcular</string>
+    <string name="buttonIrTelaCalculo">Calcular gasolina e etanol</string>
+    <string name="voltar">Voltar</string>
+</resources>
