@@ -10,9 +10,11 @@ class RecyclerViewLoginAdapter: RecyclerView.Adapter<RecyclerViewLoginAdapter.Vi
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val textView: TextView
+        val textViewEmail: TextView
 
         init {
             textView = view.findViewById(R.id.text_view_row)
+            textViewEmail = view.findViewById(R.id.text_view_email)
         }
     }
 
@@ -30,6 +32,7 @@ class RecyclerViewLoginAdapter: RecyclerView.Adapter<RecyclerViewLoginAdapter.Vi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textView.text = data[position].username
+        holder.textViewEmail.text = data[position].email
     }
 
     fun addAll(list: List<RoomEntity_Login>) {

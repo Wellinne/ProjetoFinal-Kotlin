@@ -11,6 +11,7 @@ import com.example.login.databinding.ActivityCadastroBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CadastroActivity : ComponentActivity(), OnClickListener {
 
@@ -45,7 +46,7 @@ class CadastroActivity : ComponentActivity(), OnClickListener {
         } else if (senha.isEmpty()) {
             binding.txtErrorSenha.error = "Digite a senha"
             return false
-        } else if (confirmarSenha.isEmpty() || senha !== confirmarSenha) {
+        } else if (confirmarSenha.isEmpty() || senha != confirmarSenha) {
             binding.txtErrorConfirmarSenha.error = "As senhas devem ser igual"
             return false
         }
@@ -62,7 +63,7 @@ class CadastroActivity : ComponentActivity(), OnClickListener {
             when(v?.id) {
                 R.id.btnCadastrar -> {
 
-                    CoroutineScope(Dispatchers.IO).launch { /*Acessa banco*/
+                    CoroutineScope(Dispatchers.IO).launch { /* Acessa banco */
 
                         try {
                             val nome = binding.edtNome.text.toString().trim()
@@ -82,6 +83,13 @@ class CadastroActivity : ComponentActivity(), OnClickListener {
                                 database.loginDao().insert(entity) /*insere*/
 
                                 Log.d("LOG", "saved")
+
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(this@CadastroActivity, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(this@CadastroActivity, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
                             }
                         } catch (exception: Exception) {
                             Log.d("LOG", "error: " + exception)

@@ -9,9 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.login.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -76,26 +74,20 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 // Inicia uma coroutine para verificar o login no banco de dados
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        // Busca o usuário no banco de dados pelo nome de usuário
                         val user = database.loginDao().getByEmail(email)
-
-                        if (user != null && user.pwd == password) {
-                            // Se o usuário existe e a senha está correta, faz login
-                            withContext(Dispatchers.Main) {
-                                // Redireciona para a tela de logins (ou outra tela)
-                                val intent = Intent(this@MainActivity, Logins::class.java)
-                                startActivity(intent)
-                                finish() // Finaliza a MainActivity para evitar voltar para ela
-                            }
-                        } else {
-                            // Se o usuário não existe ou a senha está incorreta, exibe uma mensagem de erro
+                        if (user == null || user.pwd != password) {
                             withContext(Dispatchers.Main) {
                                 binding.username.error = "Nome de usuário ou senha incorretos"
                                 binding.pwd.error = "Nome de usuário ou senha incorretos"
                             }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                val intent = Intent(this@MainActivity, Logins::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
                         }
                     } catch (exception: Exception) {
-                        // Loga qualquer erro que ocorrer
                         Log.d("LOG", "Erro ao verificar login: ${exception.message}")
                     }
                 }
@@ -104,23 +96,6 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 val intent = Intent(this, CadastroActivity::class.java)
                 startActivity(intent)
                 finish()
-                /*CoroutineScope(Dispatchers.IO).launch { /*Acessa banco*/
-
-                    try {
-                        val entity: RoomEntity_Login = RoomEntity_Login(
-                            username = binding.username.text.toString(),
-                            pwd = binding.pwd.text.toString(),
-                            remember = binding.remember.isChecked
-                        )
-
-                        database.loginDao().insert(entity) /*insere*/
-
-                        Log.d("LOG", "saved")
-
-                    }catch (exception: Exception) {
-                        Log.d("LOG", "error: " + exception)
-                    }
-                }*/
             }
         }
     }
