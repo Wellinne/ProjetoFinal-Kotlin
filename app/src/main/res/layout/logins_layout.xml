@@ -5,6 +5,48 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:text="Título"
+        android:textColor="@color/lilas"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/textViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:autofillHints="emailAddress"
+        android:backgroundTint="@color/cinza"
+        android:ems="10"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:hint="Descrição"
+        android:inputType="textEmailAddress"
+        android:minWidth="250dp"
+        android:textColor="@color/cinza"
+        android:textColorHint="@color/cinza"/>
+
+    <EditText
+        android:id="@+id/textViewDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:autofillHints="emailAddress"
+        android:backgroundTint="@color/cinza"
+        android:ems="10"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:hint="Descrição"
+        android:inputType="textEmailAddress"
+        android:minWidth="250dp"
+        android:textColor="@color/cinza"
+        android:textColorHint="@color/cinza"/>
+
     <!-- Texto de boas-vindas -->
     <TextView
         android:id="@+id/txtWelcome"
@@ -15,9 +57,21 @@
         android:textStyle="bold"
         android:layout_marginBottom="16dp"/>
 
+    <!-- Botão de adicionar (+) -->
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Lista de informações adicionadas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"
+        android:padding="8dp"/>
 </LinearLayout>
