@@ -1,37 +1,39 @@
 package com.example.login
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.login.databinding.LoginsLayoutBinding
 
-class RecyclerViewDailyAdapter : RecyclerView.Adapter<RecyclerViewDailyAdapter.ViewHolder>() {
+class RecyclerViewDailyAdapter : RecyclerView.Adapter<RecyclerViewDailyAdapter.DailyViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.text_view_row)
-        val textViewDate: TextView = view.findViewById(R.id.textViewDate)
-    }
+    private var dailyList = mutableListOf<RoomEntity_Daily>()
 
-    val data: MutableList<RoomEntity_Daily> = mutableListOf()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_layout, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = data[position].description
-        holder.textViewDate.text = data[position].date
-    }
-
-    fun addAll(list: List<RoomEntity_Daily>) {
-        data.clear()
-        data.addAll(list)
+    fun addAll(daily: List<RoomEntity_Daily>) {
+        Log.d("RecyclerView", "Adicionando ${daily.size} itens")
+        dailyList.addAll(daily)
         notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
+        val binding = LoginsLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return DailyViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
+        val daily = dailyList[position]
+        holder.bind(daily)
+    }
+
+    override fun getItemCount(): Int = dailyList.size
+
+    inner class DailyViewHolder(private val binding: LoginsLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(daily: RoomEntity_Daily) {
+            // Usando TextView para exibir texto
+            binding.textViewTitle.setText(daily.title)
+            binding.textViewDescription.setText(daily.description)
+        }
     }
 }

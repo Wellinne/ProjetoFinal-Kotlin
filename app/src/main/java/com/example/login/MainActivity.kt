@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                             }
                         } else {
                             withContext(Dispatchers.Main) {
-                                val intent = Intent(this@MainActivity, Logins::class.java)
+                                val intent = Intent(this@MainActivity, Notas::class.java)
                                 startActivity(intent)
                                 finish()
                             }
