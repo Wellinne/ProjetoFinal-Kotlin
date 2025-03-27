@@ -26,6 +26,7 @@
             android:exported="true">
         </activity>
         <activity android:name=".Notas" />
+        <activity android:name=".PerfilActivity" />
     </application>
 
 </manifest>

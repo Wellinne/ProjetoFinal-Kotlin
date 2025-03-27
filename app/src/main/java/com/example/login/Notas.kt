@@ -35,6 +35,7 @@ class Notas : AppCompatActivity(), OnClickListener {
 
         binding.btnHome.setOnClickListener(this)
         binding.btnPerfil.setOnClickListener(this)
+        binding.btnSair.setOnClickListener(this)
 
         // Inicializando o banco de dados Room
         database = Room.databaseBuilder(applicationContext, RoomDB_Daily::class.java, "dailyDp").build()
@@ -43,7 +44,7 @@ class Notas : AppCompatActivity(), OnClickListener {
         CoroutineScope(Dispatchers.IO).launch {
             val result: List<RoomEntity_Daily> = database.dailyDao().getAll()
             withContext(Dispatchers.Main) {
-                adapter.addAll(result)
+                adapter.updateList(result)
             }
         }
 
@@ -68,7 +69,7 @@ class Notas : AppCompatActivity(), OnClickListener {
                     // Atualizar RecyclerView após inserção
                     val result: List<RoomEntity_Daily> = database.dailyDao().getAll()
                     withContext(Dispatchers.Main) {
-                        adapter.addAll(result)
+                        adapter.updateList(result)
                     }
                 }
             } else {
@@ -85,13 +86,24 @@ class Notas : AppCompatActivity(), OnClickListener {
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.btnHome -> {
+                val email = intent.getStringExtra("EMAIL") ?: ""
                 val intent = Intent(this, Notas::class.java)
+                intent.putExtra("EMAIL", email);
                 startActivity(intent)
                 finish()
             }
 
             R.id.btnPerfil -> {
-                val intent = Intent(this, CadastroActivity::class.java)
+                val email = intent.getStringExtra("EMAIL") ?: ""
+
+                val intent = Intent(this, PerfilActivity::class.java)
+                intent.putExtra("EMAIL", email);
+                startActivity(intent)
+                finish()
+            }
+
+            R.id.btnSair -> {
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

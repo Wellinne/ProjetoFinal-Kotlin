@@ -83,6 +83,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                         } else {
                             withContext(Dispatchers.Main) {
                                 val intent = Intent(this@MainActivity, Notas::class.java)
+                                intent.putExtra("EMAIL", binding.username.text.toString())
                                 startActivity(intent)
                                 finish()
                             }

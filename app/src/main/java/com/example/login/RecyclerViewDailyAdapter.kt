@@ -6,19 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.login.databinding.LoginsLayoutBinding
+import com.example.login.databinding.RowLayoutBinding
 
 class RecyclerViewDailyAdapter : RecyclerView.Adapter<RecyclerViewDailyAdapter.DailyViewHolder>() {
 
-    private var dailyList = mutableListOf<RoomEntity_Daily>()
+    private var dailyList = ArrayList<RoomEntity_Daily>()
 
-    fun addAll(daily: List<RoomEntity_Daily>) {
-        Log.d("RecyclerView", "Adicionando ${daily.size} itens")
+    fun updateList(daily: List<RoomEntity_Daily>) {
+        Log.d("RecyclerView", "Atualizando lista com ${daily.size} itens")
+        dailyList.clear()
         dailyList.addAll(daily)
-        notifyDataSetChanged()
+        notifyDataSetChanged() // Atualiza toda a lista corretamente
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
-        val binding = LoginsLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RowLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DailyViewHolder(binding)
     }
 
@@ -29,11 +31,10 @@ class RecyclerViewDailyAdapter : RecyclerView.Adapter<RecyclerViewDailyAdapter.D
 
     override fun getItemCount(): Int = dailyList.size
 
-    inner class DailyViewHolder(private val binding: LoginsLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class DailyViewHolder(private val binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(daily: RoomEntity_Daily) {
-            // Usando TextView para exibir texto
-            binding.textViewTitle.setText(daily.title)
-            binding.textViewDescription.setText(daily.description)
+            binding.textViewRow.setText(daily.title)
+            binding.textViewEmail.setText(daily.description)
         }
     }
 }
